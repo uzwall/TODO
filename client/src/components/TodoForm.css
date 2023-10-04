@@ -58,7 +58,7 @@
   transition: background-color 0.3s; 
 }
 
-.todo-form button:hover {
+.todo-form button {
   background-color: rgb(3, 253, 82);
   color: rgb(7, 7, 7); 
 }
@@ -97,6 +97,7 @@
   .todo-list input {
    padding: 40px;
    margin: 32px;
+   ;
   
     
   }
@@ -121,19 +122,23 @@
 
 
       /* Style the buttons on hover */
-      .delete-item:hover, .update-item:hover {
+      .delete-item {
         background-color: #ff0000; 
         color: white;
         
       }
       
-      .update-item:hover {
+      .update-item {
         background-color: #4f0fff; 
         color: white;
         
       }
-
-      
-
+  /* Style the custom checkbox */
+.custom-checkbox {
+   scale: 3;
+   accent-color: rgb(13, 165, 13);
+  }
+  
+  
   
   

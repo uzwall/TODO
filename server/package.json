@@ -21,6 +21,7 @@
     "mongoose": "^7.5.3"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.14",
     "nodemon": "^3.0.1",
     "typescript": "^5.2.2"
   }

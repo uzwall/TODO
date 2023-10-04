@@ -3,6 +3,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import todoItemsRoutes from './routes/todoItems';
+import cors from 'cors';
 
 
 dotenv.config();
@@ -15,7 +16,8 @@ app.use(express.json());
 // Port
 const PORT: number = parseInt(process.env.PORT as string, 10) || 5500;
 
-// import routes
+//use cors
+app.use(cors())
 
 // Use routes 
 app.use('/api', todoItemsRoutes);
