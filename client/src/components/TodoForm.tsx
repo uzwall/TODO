@@ -47,9 +47,6 @@ function TodoForm() {
         console.error('Error fetching data:', error);
       });
   }, []);
-  //create function to add item to database
-  //create function to delete item from database
-  //create function to update item from database
 
   return (
     <div className="todo-form-container">
