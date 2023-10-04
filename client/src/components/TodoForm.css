@@ -1,0 +1,139 @@
+/* TodoForm.css */
+.todo-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 1000px;
+    margin: 50px auto;
+    padding: 10px;
+    background-color: #d64747;
+    border-radius: 18px;
+  }
+  
+.todo-form-container h2{
+    text-align: center;
+    color: white;
+}
+  .todo-form {
+    display: flex;
+    background-color: #ffffff;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    text-align: center;
+    width: 100%;
+    padding: 4px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    font-weight: bold;
+    display: block;
+    padding-bottom: 4px;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 15px;
+  }
+  
+  .form-group input:focus {
+    outline: none;
+  }
+
+.todo-form button {
+  background-color: #f20909; 
+  color: rgb(251, 250, 250);
+  border: none;
+  border-radius: 6px;
+  padding: 20px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s; 
+}
+
+.todo-form button:hover {
+  background-color: rgb(3, 253, 82);
+  color: rgb(7, 7, 7); 
+}
+.todo-listItems {
+    margin: 5px auto;
+    border-radius: 10px;
+    width: 100%;
+    
+  }
+  
+  .todo-list {
+     margin: 10px auto;
+     background-color: #f0efef;
+     border-radius: 10px;
+     display: flex;
+     border: 0px solid #ccc;
+     
+     
+   }
+
+   .todo-list p {
+     
+    height: auto;
+    width: 100%;
+    font-size: 20px;
+    align-items: flex-start;
+    
+   }
+   .todo-list span {
+    display: flex;
+    justify-content: space-between ;
+    font-size: 16px;
+  
+    
+  }
+  .todo-list input {
+   padding: 40px;
+   margin: 32px;
+  
+    
+  }
+     .list1{
+     padding-left: 80px;
+     padding-right: 490px;
+    
+    }
+     .list2{
+        
+        display:  grid;
+        padding: 5px;
+        border-radius: 15px;
+        
+     }
+     .list2 button{
+        padding: 15px;
+        border-radius: 15px;
+        font-size: 15px;
+       
+     }
+
+
+      /* Style the buttons on hover */
+      .delete-item:hover, .update-item:hover {
+        background-color: #ff0000; 
+        color: white;
+        
+      }
+      
+      .update-item:hover {
+        background-color: #4f0fff; 
+        color: white;
+        
+      }
+
+      
+
+  
+  
