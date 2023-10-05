@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './TodoForm.css';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 function TodoForm() {
   const [name, setName] = useState<string>('');
   const [shortDescription, setShortDescription] = useState<string>('');
   const [date, setDate] = useState<string>('');
   const [time, setTime] = useState<string>('');
-
+  const navigate = useNavigate();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = {
@@ -22,6 +23,7 @@ function TodoForm() {
       .then((res: any) => {
         console.log('Data Added Successfully!');
         console.log('Data successfully submitted:', res.data);
+        navigate("/");
       })
       .catch((err: any) => {
         console.error('Error submitting data:', err);
@@ -36,7 +38,7 @@ function TodoForm() {
 
   const [lists, setLists] = useState<any[]>([]);
 
-  // Create a function to fetch all items from the database using useEffect
+  // fetch all items from the database using useEffect
   useEffect(() => {
     axios.get("http://localhost:3300/api/items")
       .then((res) => {
@@ -47,6 +49,8 @@ function TodoForm() {
         console.error('Error fetching data:', error);
       });
   }, []);
+
+
 
   return (
     <div className="todo-form-container">
@@ -102,23 +106,23 @@ function TodoForm() {
         
           {lists.map((list) => (
             <div className="todo-listItems">
-            <div className="todo-list">
-            <div key={list.id}>
+            <div className="todo-list" key={list.id}>
+          
               <input className="custom-checkbox" type="checkbox" />
               <div className="list1">
                 <p className="item-description">{list.shortDescription}</p>
 
-                <span>
+                <div className="list-details">
                   <p className="item-name">{list.name}</p>
-                  <p className="item-date">{list.date}</p>
+                  <p className="item-date">{list.date.substring(0, 10)}</p>
                   <p className="item-time">{list.time}</p>
-                </span>
+                </div>
               </div>
               <div className="list2">
                 <button className="update-item">Edit</button>
                 <button className="delete-item">Delete</button>
               </div>
-            </div>
+           
             </div>
             </div>
           ))}

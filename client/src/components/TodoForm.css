@@ -66,6 +66,7 @@
     margin: 5px auto;
     border-radius: 10px;
     width: 100%;
+    ;
     
   }
   
@@ -75,25 +76,27 @@
      border-radius: 10px;
      display: flex;
      border: 0px solid #ccc;
+     justify-content: space-between;
      
      
    }
 
-   .todo-list p {
+   .item-description {
      
-    height: auto;
-    width: 100%;
-    font-size: 20px;
-    align-items: flex-start;
+   font-size: 17px;
+   justify-content: space-between;
+   
+   
+   
     
    }
-   .todo-list span {
+   .list-details {
     display: flex;
-    justify-content: space-between ;
-    font-size: 16px;
-  
-    
+    flex-direction: row;
+    gap: 8px;
+    font-size: 15px;
   }
+ 
   .todo-list input {
    padding: 40px;
    margin: 32px;
@@ -101,22 +104,23 @@
   
     
   }
-     .list1{
-     padding-left: 80px;
-     padding-right: 490px;
-    
-    }
+  .item-name, .item-date, .item-time {
+  margin: 5px 0;
+  display:flex;
+}
+
      .list2{
         
         display:  grid;
         padding: 5px;
         border-radius: 15px;
+        -ms-flex-align: end;
         
      }
      .list2 button{
         padding: 15px;
         border-radius: 15px;
-        font-size: 15px;
+        font-size: 13px;
        
      }
 
