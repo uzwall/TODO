@@ -22,22 +22,10 @@ To get started with this Todo app, follow these steps:
    
     ```shell
    cd TODO
-    
-3. add .env file to main folder
-   ```shell
-   DB_CONNECT = mongodb+srv://node-api/
-   PORT = port
-   
 
-4.Build and start the Docker containers:
+
+3.Build and start the Docker containers:
 
   ```shell
-  docker-compose up -d --build
-
-
-  Command to remove all images:  
-   `docker rmi -f $(docker images -a -q)`
-   
-  Command to remove all containers:  
-   `docker rm -vf $(docker ps -a -q)`
+ docker-compose up -d --build
 
