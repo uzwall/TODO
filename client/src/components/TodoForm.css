@@ -10,7 +10,7 @@
     border-radius: 18px;
   }
   
-.todo-form-container h2{
+.todo-form-container h1{
     text-align: center;
     color: white;
 }
@@ -48,19 +48,20 @@
   }
 
 .todo-form button {
-  background-color: #f20909; 
+  background-color: #13ac37; 
   color: rgb(251, 250, 250);
   border: none;
-  border-radius: 6px;
+  border-radius: 10px;
   padding: 20px;
   font-size: 20px;
   cursor: pointer;
   transition: background-color 0.3s; 
 }
 
-.todo-form button {
+.todo-form button:hover {
   background-color: rgb(3, 253, 82);
   color: rgb(7, 7, 7); 
+  border-radius: 17px;
 }
 .todo-listItems {
     margin: 5px auto;
@@ -83,7 +84,7 @@
 
    .item-description {
      
-   font-size: 17px;
+   font-size: 20px;
    justify-content: space-between;
    
    
@@ -93,7 +94,7 @@
    .list-details {
     display: flex;
     flex-direction: row;
-    gap: 8px;
+    gap: 10px;
     font-size: 15px;
   }
  
@@ -112,9 +113,10 @@
      .list2{
         
         display:  grid;
-        padding: 5px;
+        gap: 4px;
+        padding: 4px;
         border-radius: 15px;
-        -ms-flex-align: end;
+       
         
      }
      .list2 button{
@@ -126,23 +128,49 @@
 
 
       /* Style the buttons on hover */
-      .delete-item {
-        background-color: #ff0000; 
+      .delete-item  {
+        background-color:  #f90a0a; 
         color: white;
-        
+        border: 2px;
+        column-gap: 3px;
       }
       
       .update-item {
         background-color: #4f0fff; 
         color: white;
+        border: 2px;
+        column-gap: 3px;
         
       }
+
+      /* Style the buttons on hover */
+.delete-item:hover {
+  background-color: #f86969;
+  color: white;
+  font-style: bold;
+  border: 0px;
+  column-gap: 3px;
+}
+
+.update-item:hover {
+  background-color: #5555ff; /* Change the background color on hover */
+  color: white;
+  font-style: bold;
+  border: 0px;
+}
   /* Style the custom checkbox */
 .custom-checkbox {
    scale: 3;
    accent-color: rgb(13, 165, 13);
   }
   
+  .filter-buttons select {
+    width: 200px; /* Adjust the width as needed */
+    height: 35px; /* Adjust the height as needed */
+    font-size: 16px; /* Adjust the font size as needed */
+    margin-top: 3px;
+    text-align: center;
+  }
   
   
   

@@ -1,60 +1,148 @@
 import React, { useEffect, useState } from 'react';
 import './TodoForm.css';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+
 
 function TodoForm() {
   const [name, setName] = useState<string>('');
   const [shortDescription, setShortDescription] = useState<string>('');
   const [date, setDate] = useState<string>('');
   const [time, setTime] = useState<string>('');
-  const navigate = useNavigate();
+  const [lists, setLists] = useState<any[]>([]);
+  const [itemIdToUpdate, setItemIdToUpdate] = useState<string | undefined>(undefined); // Initialize itemIdToUpdate
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [filter, setFilter] = useState<string>('all'); // Initialize filter
+
+
+
+  useEffect(() => {
+    // Fetch all items from the database using useEffect
+    const getLists = async () => {
+      axios.get("http://localhost:3300/api/items")
+      .then((res) => {
+        setLists(res.data);
+        console.log("Data has been received!");
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+    }
+    getLists();
+  }, []); 
+
+  const handleEdit =  (itemId: string)  => {
+    // Find item to update
+    const itemToUpdate = lists.find((list) => list._id === itemId);
+
+    // Set form fields to item values
+    setName(itemToUpdate?.name);
+    setShortDescription(itemToUpdate?.shortDescription);
+    setDate(itemToUpdate?.date.substring(0, 10));
+    setTime(itemToUpdate?.time);
+    setItemIdToUpdate(itemId);
+    setIsUpdating(true);
+    
+  };
+
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    
     const formData = {
       name,
       shortDescription,
       date,
       time,
     };
-
+  
+    if (isUpdating) {
+      // Update existing item
+      axios
+        .put(`http://localhost:3300/api/item/${itemIdToUpdate}`, formData)
+        .then((res) => {
+          const updatedLists = lists.map((list) => {
+            if (list._id === itemIdToUpdate) {
+              // Replace the old data with the new data
+              return res.data;
+            }
+            return list;
+          });
+      
+          setLists(updatedLists);
+          setName("");
+          setShortDescription("");
+          setDate("");
+          setTime("");
+          setIsUpdating(false);
+          setItemIdToUpdate(undefined);
+          
+        })
+        .catch((error) => {
+          // Handle error
+          console.error("Error updating data:", error);
+        });
+    } else {
+      // Add new item
+      axios
+        .post("http://localhost:3300/api/item", formData)
+        .then((res) => {
+          // Handle success
+          // Reset form fields
+          setLists([...lists, res.data]);
+          setName("");
+          setShortDescription("");
+          setDate("");
+          setTime("");
+          
+        })
+        .catch((error) => {
+          // Handle error
+          console.error("Error submitting data:", error);
+        });
+    }
+  };
+  
+  //for To delete data from the database
+  const handleDelete = (id: any) => {
     axios
-      .post('http://localhost:3300/api/item', formData)
+      .delete(`http://localhost:3300/api/item/${id}`)
       .then((res: any) => {
-        console.log('Data Added Successfully!');
-        console.log('Data successfully submitted:', res.data);
-        navigate("/");
+        console.log('Data successfully deleted!', res.data);
+        setLists(lists.filter((list) => list._id !== id));
       })
       .catch((err: any) => {
-        console.error('Error submitting data:', err);
+        console.error('Error deleting data:', err);
       });
-
-    // Reset form fields after submission
-    setName('');
-    setShortDescription('');
-    setDate('');
-    setTime('');
   };
 
-  const [lists, setLists] = useState<any[]>([]);
-
-  // fetch all items from the database using useEffect
-  useEffect(() => {
-    axios.get("http://localhost:3300/api/items")
-      .then((res) => {
-        console.log('Data fetched successfully!');
-        setLists(res.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
-  }, []);
-
+  //for To update the checkbox
+  const handleCheckboxChange = (itemId: string) => {
+    // Find the item by ID
+    const updatedLists = lists.map((list) => {
+      if (list._id === itemId) {
+        // Toggle the 'completed' property
+        return { ...list, completed: !list.completed };
+      }
+      return list;
+    });
+    setLists(updatedLists);
+  };
+  //filtering the data
+  const filteredLists = lists.filter((list) => {
+    if (filter === 'all') {
+      return true;
+    } else if (filter === 'upcoming') {
+      return !list.completed;
+    } else if (filter === 'done') {
+      return list.completed;
+    }
+    return true;
+  });
 
 
   return (
     <div className="todo-form-container">
-      <h2>Todo List</h2>
+      <h1>TODO LIST</h1>
       <form className="todo-form" onSubmit={(e) => handleSubmit(e)}>
         <div className="form-group">
           <label htmlFor="name">Name:</label>
@@ -100,15 +188,28 @@ function TodoForm() {
             required
           />
         </div>
-        <button type="submit">Add</button>
+        <button type="submit"  >{isUpdating ? "Update" : "Add"}</button>
       </form>
       
+      <div className="filter-buttons">
+        <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+              <option value="all">All</option>
+              <option value="upcoming">Upcoming</option>
+              <option value="done">Done</option>
+            </select>
+      </div>
         
-          {lists.map((list) => (
-            <div className="todo-listItems">
-            <div className="todo-list" key={list.id}>
+          {filteredLists.map((list) => ( 
+             
+            <div className="todo-listItems" >
+            <div className="todo-list" key={list._id}>
           
-              <input className="custom-checkbox" type="checkbox" />
+            <input
+              className="custom-checkbox"
+              type="checkbox"
+              checked={list.completed}
+              onChange={() => handleCheckboxChange(list._id)}
+            />
               <div className="list1">
                 <p className="item-description">{list.shortDescription}</p>
 
@@ -119,10 +220,9 @@ function TodoForm() {
                 </div>
               </div>
               <div className="list2">
-                <button className="update-item">Edit</button>
-                <button className="delete-item">Delete</button>
+                <button className="update-item" onClick={()=>{handleEdit(list._id)}}>Edit</button>
+                <button className="delete-item" onClick={()=>{handleDelete(list._id)}}>Delete</button>
               </div>
-           
             </div>
             </div>
           ))}
