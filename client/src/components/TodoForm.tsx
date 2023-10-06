@@ -18,7 +18,7 @@ function TodoForm() {
   useEffect(() => {
     // Fetch all items from the database using useEffect
     const getLists = async () => {
-      axios.get("http://localhost:3300/api/items")
+      axios.get("http://node-api:3300/api/items")
       .then((res) => {
         setLists(res.data);
         console.log("Data has been received!");
@@ -58,7 +58,7 @@ function TodoForm() {
     if (isUpdating) {
       // Update existing item
       axios
-        .put(`http://localhost:3300/api/item/${itemIdToUpdate}`, formData)
+        .put(`http://node-api:3300/api/item/${itemIdToUpdate}`, formData)
         .then((res) => {
           const updatedLists = lists.map((list) => {
             if (list._id === itemIdToUpdate) {
@@ -84,7 +84,7 @@ function TodoForm() {
     } else {
       // Add new item
       axios
-        .post("http://localhost:3300/api/item", formData)
+        .post("http://node-api:3300/api/item", formData)
         .then((res) => {
           // Handle success
           // Reset form fields
@@ -105,7 +105,7 @@ function TodoForm() {
   //for To delete data from the database
   const handleDelete = (id: any) => {
     axios
-      .delete(`http://localhost:3300/api/item/${id}`)
+      .delete(`http://node-api:3300/api/item/${id}`)
       .then((res: any) => {
         console.log('Data successfully deleted!', res.data);
         setLists(lists.filter((list) => list._id !== id));
